@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .number {
+            padding: .5rem;
+        }
+        
+        .type {
+            padding: .5rem;
+        }
+        
+        .tittle {
+            padding: .5rem;
+        }
+        
+        .team {
+            padding: .5rem;
+        }
+        
+        .op {
+            opacity: 0.5;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <section v-if="loading">
+            Loading...
+        </section>
+
+        <section v-else>
+            <div class="container">
+                <div class="tittle">
+                    <div class="input">
+                        <input type="text" placeholder="會員名稱" v-model.trim="input.name">
+                        <input type="text" placeholder="電子信箱" v-model.trim="input.email">
+                        <!-- :disabled="input.name === '' || input.email === ''" -->
+                        <button :class="{ op: input.name === '' }" @click=" submitHandler() ">送出</button>
+                        <button @click="cancelHandler() ">取消</button>
+                    </div>
+                    <div class="menu ">
+                        <div class="menuItem " v-for="(item,index) in contacts " :key="item.id " style="display: flex; ">
+                            <div class="number ">{{ item.id }}</div>
+                            <div class="type ">{{ item.name }}</div>
+                            <a :href=" 'mailto:'+item.email " target="vue-icon " class="tittle ">
+                                {{ item.email }}
+                            </a>
+                            <div class="team ">
+                                <span class="edit " @click="editHandler(index) ">修改</span>
+                                <span class="delete " @click="deleteHandler(index) ">刪除</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js " integrity="sha512-gh+25Y0CTHtw1FSJ4gDKYDFlZ84oV0l1bY5v7xrIwep7M1aV+7JgUaTu55bMerCblbPUD22MKlStyUwO9lHq4w==" crossorigin=" anonymous " referrerpolicy="no-referrer "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js " integrity="sha512-rmzOdPpGoO4bACRffaiFrOe9YI2WFS87TZssHmbVPL9cHymNHrYM30oXoUKW7cL+xjwip8+WgCWRHr6ScvfUng==" crossorigin=" anonymous " referrerpolicy="no-referrer "></script>
+
+    <script>
+        let data = {
+            loading: false,
+            contacts: [],
+            editIndex: null,
+            input: {
+                name: '',
+                email: ''
+            },
+        }
+
+        let vm = new Vue({
+            el: '#app',
+            data: data,
+            methods: {
+                submitHandler() {
+                    let {
+                        name,
+                        email
+                    } = this.input
+                        // console.log(!name || !email);  
+                    this.loading = true
+                    if (this.editIndex) {
+                        // confirm(`editIndex`)
+                        axios.put('http://localhost:8888/content/' + this.contacts[this.editIndex].id, this.input)
+                            .then(res => {
+                                this.contacts[this.editIndex] = res.data
+                                this.loading = false
+                            })
+                            .catch(err => {
+                                console.error(err);
+                            })
+                    } else {
+                        if (name && email) {
+                            axios.post('http://localhost:8888/content', this.input)
+                                .then(res => {
+                                    this.contacts.push(res.data)
+                                    this.cancelHandler()
+                                    this.loading = false
+                                })
+                                .catch(err => {
+                                    console.error(err);
+                                })
+                        } else {
+                            this.loading = false
+                        }
+                    }
+                },
+                cancelHandler() {
+                    let {
+                        name,
+                        email
+                    } = this.input
+                    this.input = ''
+                    this.editIndex = ''
+                },
+                deleteHandler(index) {
+                    let target = this.contacts[index]
+                    if (confirm(`是否刪除 ${target.name}`)) {
+                        this.loading = true
+                        axios.delete('http://localhost:8888/content/' + target.id)
+                            .then(res => {
+                                this.contacts.splice(index, 1)
+                            })
+                            .catch(err => {
+                                console.error(err);
+                            })
+                    }
+                },
+                editHandler(index) {
+                    let {
+                        name,
+                        email
+                    } = this.contacts[index]
+                    this.editIndex = index
+                        // this.input.name = name
+                        // this.input.email = email
+                    this.input = {
+                        name,
+                        email
+                    }
+                },
+            },
+            mounted() {
+                this.loading = true
+                axios.get('http://localhost:8888/content')
+                    .then(res => {
+                        console.log(res)
+                        this.contacts = res.data
+                        this.loading = false
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    })
+
+            },
+        })
+    </script>
+
+</body>
+
+</html>

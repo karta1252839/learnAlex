@@ -1,0 +1,14 @@
+{
+    "name": "day",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "json": "json-server --watch db.json --port 8888"
+    },
+    "author": "alex",
+    "license": "MIT",
+    "dependencies": {
+        "json-server": "^0.17.0"
+    }
+}
