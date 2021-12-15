@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <title>Document</title>
+    <style>
+        .descriotion {
+            display: flex;
+            padding: 1.25rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <section>
+            <div class="">
+                <div class="title">
+                    <div class="descriotion">
+                        <button class="" @click="number++"> {{number}} </button>
+                    </div>
+                    <div class="descriotion">
+                        <button class="" @click="obj.num++"> {{obj.num}} </button>
+                    </div>
+                    <div class="descriotion">
+                        <button v-for="(item,index) in objList" @click="objListHandler(index)">
+                            {{ item.num }}
+                        </button>
+                    </div>
+                    <div class="descriotion">
+                        <button v-for="(number,index) in numberList" @click="numberListHandler(index)">
+                            {{ number }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js" integrity="sha512-gh+25Y0CTHtw1FSJ4gDKYDFlZ84oV0l1bY5v7xrIwep7M1aV+7JgUaTu55bMerCblbPUD22MKlStyUwO9lHq4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        let data = {
+            number: 0,
+            obj: {
+                num: 0
+            },
+            objList: [{
+                num: 0
+            }, {
+                num: 0
+            }, {
+                num: 0
+            }],
+            numberList: [0, 0, 0],
+        }
+
+        let vm = new Vue({
+            el: '#app',
+            data: data,
+            methods: {
+                objListHandler(index) {
+                    this.objList[index].num++
+                },
+                // 遇到陣列數字 必須要set不可以直接做
+                numberListHandler(index) {
+                    // 直接做
+                    // this.numberList[index]++
+                    // $set方式 (誰,哪,做啥)
+                    this.$set(this.numberList, index, this.numberList[index] + 1)
+                },
+            },
+            // watch原理主要 : 設定資料(newValue)和讀取資料轉換(oldValue).func
+            // 直接抓取 data 內容物
+            watch: {
+                number(newValue, oldValue) {
+                    console.log('number:', newValue, oldValue);
+                },
+
+                // 裡面的內容顯示
+                // ['obj.num'](newValue, oldValue) {
+                //     console.log('obj.num:', newValue, oldValue);
+                // },
+
+                // 物件顯示 : 顯示物件是記憶體的 則 newValue & oldValue 為相同
+                obj: {
+                    handler(newValue, oldValue) {
+                        console.log('number:', newValue, oldValue);
+                    },
+                    // deep 深入觀測
+                    deep: true
+                },
+
+                // 多餘
+                numberList(newValue, oldValue) {
+                    console.log('numberList:', newValue, oldValue);
+                },
+
+                objList: {
+                    handler(newValue, oldValue) {
+                        console.log('objList:', newValue, oldValue);
+                    },
+                    // deep 深入觀測
+                    deep: true
+                },
+            },
+        })
+
+        // 純JS寫法
+        // document.querySelector('xxx').addEventListener('click', function() {
+        // })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .a {
+            justify-content: space-between;
+            flex-direction: column-reverse;
+            align-items: center;
+            order: 1;
+            align-self: end;
+            flex-wrap: wrap;
+            align-content: center;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 【加註筆記】
+        // 如果外面包不用箭頭函式 setTimeout裡面會有自己的 this = window
+        document.querySelector('#button').addEventListener('click', function() {
+            var self = this //所以以前才會加上這句變成裡面this = button
+            console.log(this); //#button
+
+            setTimeout(() => {
+                console.log(this); //window
+                console.log(self); //#button
+            }, 500);
+        })
+
+        // document.querySelector('#button').addEventListener('click', () => {
+        //     setTimeout(() => {
+        //         console.log(this); 
+        //     }, 500);
+        // })
+
+        // 【ES6的四大區】
+
+        // 1.宣告與作用域---
+        // let與const
+
+        // 塊級作用域
+
+        // 箭頭函式 (如果一行怎可省略{})
+        let aaa = () => 'test';
+        // let aaa = function() {
+        //     return 'test';
+        // }
+
+
+        // 2.變數設定---
+        // 變數解構重設(input在前 = 解構;input在後 = 結構)
+        let {
+            a,
+            b
+        } = input
+        let input = {
+            a,
+            b
+        }
+
+        // 字串模版
+
+        let ary = [1, 2, 3, 4, 5, 6]
+        let [a, b, ...c] = ary
+        // c = [3, 4, 5, 6]
+
+        // 3.非同步處理--- (麥當勞例子)
+        // Promise (成功與否) then (非同步) [優點:async/await 包在 try/catch 有時候變數跑出 undefined 無法 catch error]
+        function fn1() {
+            // resolve通過(成功), reject駁回(失敗)
+            return Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log(1);
+                    // 做完要resolve
+                    resolve()
+                }, 0);
+            });
+        }
+
+        function fn2() {
+            console.log(2);
+        }
+
+        // 然後再做fn2
+        fn1().then(fn2)
+
+        // Async Await
+        async function test() {
+            // await 等待(非同步)
+            await fn1()
+            fn2()
+        }
+
+        // 4.其他---
+        // 預設值
+        // Module
+    </script>
+</body>
+
+</html>

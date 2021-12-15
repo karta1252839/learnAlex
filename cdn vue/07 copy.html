@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="">
+            <select v-model="input.type">
+                <option>主廚的話</option>
+                <option>餐具擺盤</option>
+                <option>開胃餐點</option>
+            </select>
+            <input v-model.trim="input.title" type="text" @keyup.enter="addHer" />
+        </div>
+        <div v-for="(item,index) in menu" :key="item.id" style="display: flex;background-color:grey;">
+            <div class="number" style="color: #fff;"> {{index+1}} </div>
+            <div class="type" style="color:rgb(240, 194, 148);"> {{item.type}} </div>
+            <a :href="item.link" class="title" style="color:rgb(20, 49, 82);"> {{item.title}} </a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js" integrity="sha512-gh+25Y0CTHtw1FSJ4gDKYDFlZ84oV0l1bY5v7xrIwep7M1aV+7JgUaTu55bMerCblbPUD22MKlStyUwO9lHq4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        let data = {
+            input: [{
+                type: '主廚的話',
+                title: '',
+            }],
+            index: 0,
+            menu: [{
+                type: '主廚的話',
+                title: '餐點簡介與相關說明',
+                link: 'javascript:;'
+            }, {
+                type: '餐具擺盤',
+                title: '萬用白瓷 VS Code 與套裝工具組',
+                link: 'javascript:;'
+            }, {
+                type: '開胃餐點',
+                title: '中式資料綁定佐無毒 jQuery 畫面處理',
+                link: 'javascript:;'
+            }, {
+                type: '開胃餐點',
+                title: '古早味事件燉畫面綁定',
+                link: 'javascript:;'
+            }, {
+                type: '開胃餐點',
+                title: '清爽表單處理佐雙向資料',
+                link: 'javascript:;'
+            }, ],
+        }
+
+        let vm = new Vue({
+            el: '#app',
+            data: data,
+            methods: {
+                addHer() {
+                    if (this.input.title) {
+                        let {
+                            type,
+                            title
+                        } = this.input
+                        this.menu.push({
+                            type,
+                            title,
+                            link: 'javascript:;'
+                        })
+                        this.input.title = ''
+                    }
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

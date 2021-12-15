@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 【Array迴圈】
+        // forEach(要用一個陣列來包裝)
+        // map
+        // filter(篩選)
+
+        // some (其中一個符合條件) array.some(function(value, index, arr), this)
+        // every (每個符合條件)
+
+        // 【Array處理】
+        // .sort() 順序 array.sort(compareFunction)
+
+        // .splice() 增減 array.splice(index, howmany, item1, ....., itemX)
+        // comments.splice(ans3,0,xxx) 新增
+        comments.splice(ans3, 1) // 刪除
+
+        // .slice() 切開 array.slice(start, end)
+        const ans5 = comments.slice(0, ans3)
+        const ans5 = comments.slice(ans3 + 1) // array.slice(start)
+
+        // .find() 僅找一個
+        const ans2 = comments.find((comments) => {
+            comments.id === 823423
+        })
+
+        // .findIndex() 僅找一個符合他的編號
+        const ans3 = comments.findIndex((comments) => {
+            comments.id === 823423
+        })
+
+        // 【OBJ】
+        // .assign({複製到},對象)  Object.assign(target, ...sources)
+        Object.assign({}, obj1)
+
+        // parse 把一個JSON字串轉換成 JavaScript的數值或是物件 JSON.parse(text[, reviver])
+        // stringify 將 JavaScript 值轉換為 JSON 字符串 JSON.stringify(value[, replacer[, space]])
+        JSON.parse(JSON.stringify(obj2))
+    </script>
+
+    <!-- 機車螢幕蓋 耳機固定 -->
+    <!-- 自家網站 別人網站 遊戲網站 -->
+</body>
+
+</html>

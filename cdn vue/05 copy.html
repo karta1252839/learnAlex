@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <section>
+            <div class="container">
+                <div class="title">
+                    <div class="input" style="background-color: darkcyan;color: #fff;padding: 1rem;">
+
+                    </div>
+                    <div class="menu">
+                        <table>
+                            <tr>
+                                <td class="title">
+                                    姓名:
+                                </td>
+                                <td>
+                                    <input value="Alex">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="title">
+                                    性別:
+                                </td>
+                                <td>
+                                    <input type="radio" name="" value="女" id="">
+                                    <input type="radio" name="" value="男" checked id="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="title">
+                                    年齡:
+                                </td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">20歲間</option>
+                                        <option value="">20~30歲間</option>
+                                        <option value="" selected>30~40歲間</option>
+                                        <option value="">40歲以上</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="title">
+                                    興趣:
+                                </td>
+                                <td>
+                                    <input type="checkbox" value="打扣" id="">打扣
+                                    <input type="checkbox" value="電玩" id="">電玩
+                                    <input type="checkbox" value="遊日本" id="">遊日本
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js" integrity="sha512-gh+25Y0CTHtw1FSJ4gDKYDFlZ84oV0l1bY5v7xrIwep7M1aV+7JgUaTu55bMerCblbPUD22MKlStyUwO9lHq4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        let data = {
+            name: 'Alex',
+            sex: '男',
+            age: '30~40 歲間',
+            favor: ['打扣', '電玩', '遊日本'],
+            member: true,
+        }
+
+        let vm = new Vue({
+            el: '#app',
+            data: data
+        })
+    </script>
+</body>
+
+</html>

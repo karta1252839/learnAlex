@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <title>Document</title>
+    <style>
+        .descriotion {
+            display: flex;
+            padding: 1.25rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <section>
+            <div class="">
+                <div class="title">
+                    <div class="descriotion">
+                        <button class="" @click="number++"> {{number}} </button>
+                    </div>
+                    <div class="descriotion">
+                        <button class="" @click="obj.num++"> {{obj.num}} </button>
+                    </div>
+                    <div class="descriotion">
+                        <button v-for="(item,index) in objList" @click="objListHandler(index)">
+                            {{ item.num }}
+                        </button>
+                    </div>
+                    <div class="descriotion">
+                        <button v-for="(number,index) in numberList" @click="numberListHandler(index)">
+                            {{ number }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js" integrity="sha512-gh+25Y0CTHtw1FSJ4gDKYDFlZ84oV0l1bY5v7xrIwep7M1aV+7JgUaTu55bMerCblbPUD22MKlStyUwO9lHq4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        let data = {
+            number: 0,
+            obj: {
+                num: 0
+            },
+            objList: [{
+                num: 0
+            }, {
+                num: 0
+            }, {
+                num: 0
+            }],
+            numberList: [0, 0, 0]
+        }
+
+        let vm = new Vue({
+            el: '#app',
+            data: data,
+            methods: {
+                objListHandler(index) {
+                    this.objList[index].num++
+                },
+                numberListHandler(index) {
+                    // this.$set(this.numberList[index].num++)
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

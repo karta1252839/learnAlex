@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="">
+            <select v-model="input.type">
+                <!-- <option :value="null">1</option> -->
+                <option v-for="item in typeList.sort">{{item}}</option>
+            </select>
+            <select v-model="input.title">
+                <!-- <option :value="null">1</option> -->
+                <option v-for="item in titleList.sort">{{item}}</option>
+            </select>
+        </div>
+        <div class="" v-if="content">
+            <span class="number"> 第{{content.index + 1 }}天 </span>
+            <span class="title"> {{content.link}} </span>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js" integrity="sha512-gh+25Y0CTHtw1FSJ4gDKYDFlZ84oV0l1bY5v7xrIwep7M1aV+7JgUaTu55bMerCblbPUD22MKlStyUwO9lHq4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        let data = {
+            index: 0,
+            menu: [{
+                type: '主廚的話',
+                title: '1餐點簡介與相關說明',
+                link: 'javascript:;'
+            }, {
+                type: '主廚的話',
+                title: '2餐點簡介與相關說明',
+                link: 'javascript:;'
+            }, {
+                type: '主廚的話',
+                title: '3餐點簡介與相關說明',
+                link: 'javascript:;'
+            }, {
+                type: '餐具擺盤',
+                title: '1萬用白瓷 VS Code 與套裝工具組',
+                link: 'javascript:;'
+            }, {
+                type: '餐具擺盤',
+                title: '2萬用白瓷 VS Code 與套裝工具組',
+                link: 'javascript:;'
+            }, {
+                type: '餐具擺盤',
+                title: '3萬用白瓷 VS Code 與套裝工具組',
+                link: 'javascript:;'
+            }, {
+                type: '開胃餐點',
+                title: '1中式資料綁定佐無毒 jQuery 畫面處理',
+                link: 'javascript:;'
+            }, {
+                type: '開胃餐點',
+                title: '2中式資料綁定佐無毒 jQuery 畫面處理',
+                link: 'javascript:;'
+            }, {
+                type: '開胃餐點',
+                title: '3中式資料綁定佐無毒 jQuery 畫面處理',
+                link: 'javascript:;'
+            }, ],
+            input: [{
+                type: null,
+                title: null,
+            }],
+        }
+
+        let vm = new Vue({
+            el: '#app',
+            data: data,
+            computed: {
+                typeList() {
+                    let obj = {
+                        sort: [],
+                        map: {}
+                    }
+                    this.menu.forEach(({
+                        type,
+                        title,
+                        link
+                    }, index) => {
+                        if (!obj.map[type]) {
+                            obj.sort.push(type)
+                            obj.map[type] = {
+                                sort: [],
+                                map: {}
+                            }
+                        }
+                        obj.map[type].sort.push(title)
+                        obj.map[type].map[title] = {
+                            index,
+                            link
+                        }
+                    });
+                    return obj
+                },
+                titleList() {
+                    if (this.input.type) {
+                        return this.typeList.map[this.input.type]
+                        this.input.title = null
+                    } else {
+                        return []
+                    }
+                },
+                content() {
+                    if (this.input.title) {
+                        return this.titleList.map[this.input.title]
+                    } else {
+                        return null
+                    }
+                }
+            },
+        })
+    </script>
+
+</body>
+
+</html>
