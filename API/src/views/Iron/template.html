@@ -1,0 +1,20 @@
+<div id="iorn">
+    <section>
+        <div class="container">
+            <div class="title" v-if="header">
+                <img class="logo" :src="header.src" alt="">
+                <h1> {{header.title}} </h1>
+                <div v-if="list.length" class="descriotion">
+                    <div class="menuItem while" style="transform: scale3d(1.5,1.5,1);">
+                        <span class="number"> {{day+1}} </span>
+                        <span class="type"> {{list[day].type}} </span>
+                        <a :href="list[day].link" class="title" target="vue-iron">{{list[day].title}}</a>
+                        <!-- currentDay -->
+                        <!-- <span class="type"> {{currentDay.type}} </span>
+                        <a :href="currentDay.link" class="title" target="vue-iron">{{currentDay.title}}</a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
